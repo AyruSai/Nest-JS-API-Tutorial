@@ -1,98 +1,222 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+````markdown
+# NestJS Bookmarks API – REST API with Authentication and PostgreSQL
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This project is built by following the YouTube course:  
+[NestJs Course for Beginners - Create a REST API](https://youtu.be/GHTA143_b-s?si=ezSTtoisfV1lv3F3)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+It demonstrates how to build a **CRUD REST API** from scratch using **NestJS** with modern backend practices:  
+- Authentication & Authorization with JWT  
+- Dockerized PostgreSQL database  
+- Prisma ORM for schema & migrations  
+- Guards, Decorators, and Pipes  
+- End-to-End testing with PactumJS  
+- Environment-based configuration  
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 📚 Summary
 
-## Project setup
+In this project, we build a **Bookmarks API** with:  
+- User Authentication (Sign up / Sign in)  
+- Protected routes with JWT tokens  
+- CRUD operations for Bookmarks  
+- DTO validation & whitelisting  
+- Prisma for database modeling and queries  
+- e2e tests with Pactum for API contract testing  
+
+---
+
+## 🔧 Installation
+
+### 1. Clone the Repository
+```bash
+git clone <your-repo-url>
+cd <project-directory>
+````
+
+### 2. Install Dependencies
 
 ```bash
-$ npm install
+npm install
 ```
 
-## Compile and run the project
+### 3. Environment Setup
+
+Create `.env` and `.env.test` files in the project root.
+
+**.env**
+
+```env
+DATABASE_URL="postgresql://postgres:pass@localhost:5434/nest?schema=public"
+JWT_SECRET="secret"
+```
+
+**.env.test**
+
+```env
+DATABASE_URL="postgresql://postgres:pass@localhost:5435/nest?schema=public"
+JWT_SECRET="secret"
+```
+
+---
+
+## ▶️ Running the Application
+
+Start development server:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm run start:dev
 ```
 
-## Run tests
+Build and run in production:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run build
+npm run start:prod
 ```
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## 🐳 Database with Docker
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+The project uses **Docker Compose** for Postgres (dev & test).
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# Start dev database
+npm run db:dev:up
+
+# Restart dev DB & apply migrations
+npm run db:dev:restart
+
+# Start test database
+npm run db:test:up
+
+# Restart test DB & apply migrations
+npm run db:test:restart
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+## 📜 Prisma
 
-Check out a few resources that may come in handy when working with NestJS:
+Apply migrations manually:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```bash
+npm run prisma:dev:deploy
+npm run prisma:test:deploy
+```
 
-## Support
+---
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 📫 API Endpoints
 
-## Stay in touch
+### 🔐 Auth
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+| Method | Endpoint       | Description   |
+| ------ | -------------- | ------------- |
+| POST   | `/auth/signup` | Register user |
+| POST   | `/auth/signin` | Login user    |
 
-## License
+---
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### 👤 Users
+
+| Method | Endpoint    | Description                |
+| ------ | ----------- | -------------------------- |
+| GET    | `/users/me` | Get current logged-in user |
+| PATCH  | `/users`    | Edit user details          |
+
+---
+
+### 🔖 Bookmarks
+
+| Method | Endpoint         | Description           |
+| ------ | ---------------- | --------------------- |
+| GET    | `/bookmarks`     | Get all bookmarks     |
+| GET    | `/bookmarks/:id` | Get bookmark by ID    |
+| POST   | `/bookmarks`     | Create new bookmark   |
+| PATCH  | `/bookmarks/:id` | Update bookmark by ID |
+| DELETE | `/bookmarks/:id` | Delete bookmark by ID |
+
+---
+
+## 🧪 Testing
+
+The project uses **Jest** & **PactumJS** for end-to-end tests.
+
+```bash
+# Run unit tests
+npm run test
+
+# Run e2e tests (with test DB)
+npm run test:e2e
+```
+
+e2e tests cover:
+
+* Auth validation & JWT token storage
+* User profile fetching & editing
+* Bookmarks CRUD (create, read, update, delete)
+
+---
+
+## 📁 Project Structure
+
+```
+src
+├── app.module.ts
+├── auth
+│   ├── auth.controller.ts
+│   ├── auth.module.ts
+│   ├── auth.service.ts
+│   ├── decorator
+│   │   ├── get-user.decorator.ts
+│   │   └── index.ts
+│   ├── dto
+│   │   ├── auth.dto.ts
+│   │   └── index.ts
+│   ├── guard
+│   │   ├── index.ts
+│   │   └── jwt.guard.ts
+│   └── strategy
+│       ├── index.ts
+│       └── jwt.strategy.ts
+├── bookmark
+│   ├── bookmark.controller.ts
+│   ├── bookmark.module.ts
+│   ├── bookmark.service.ts
+│   └── dto
+│       ├── create-bookmark.dto.ts
+│       ├── edit-bookmark.dto.ts
+│       └── index.ts
+├── main.ts
+├── prisma
+│   ├── prisma.module.ts
+│   └── prisma.service.ts
+└── user
+    ├── dto
+    │   ├── edit-user.dto.ts
+    │   └── index.ts
+    ├── user.controller.ts
+    ├── user.module.ts
+    └── user.service.ts
+
+10 directories, 26 files
+```
+
+---
+
+## 🛠️ Technologies Used
+
+* **NestJS**
+* **PostgreSQL** (Dockerized)
+* **Prisma ORM**
+* **PassportJS & JWT**
+* **PactumJS** (for e2e tests)
+* **dotenv**
+
+---
+
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE).
